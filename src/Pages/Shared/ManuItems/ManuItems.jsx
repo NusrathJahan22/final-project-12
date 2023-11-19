@@ -1,7 +1,7 @@
 
 
-const ManuItems = ({items}) => {
-    const {name,image,price,recipe} =items
+const ManuItems = ({item}) => {
+    const {name,image,price,recipe} =item;
     return (
         <div className="flex space-x-5">
           <img style={{borderRadius:'0 200px 200px 200px'  }} className="w-[100px]" src={image} alt="" />  

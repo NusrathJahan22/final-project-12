@@ -1,0 +1,91 @@
+import { useContext } from "react";
+import { useForm } from "react-hook-form";
+import { AuthContext } from "../Provider/AuthProvider";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+
+
+const SignUp = () => {
+    const {
+        register,
+        handleSubmit,
+        watch,
+        reset,
+        formState: { errors },
+      } = useForm()
+      const {createUser ,updateProfiles} =useContext(AuthContext)
+      const onSubmit = (data) =>{ console.log(data)
+
+        createUser(data.email ,data.password)
+        .then(result =>{
+            const logged= result.user
+            console.log(logged)
+            updateProfiles(data.name ,data.photoURL)
+            .then(() =>{
+                console.log('user profile is updated')
+                reset()
+                Swal.fire({
+                    position: "top-center",
+                    icon: "success",
+                    title: "User Created successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+            })
+            .catch(error =>console.log(error))
+        })
+    }
+      console.log(watch("example")) 
+      
+    return (
+        <div>
+            <div className="hero min-h-screen bg-base-200">
+                <div className="hero-content flex-col">
+                    <div className="text-center  lg:text-left">
+                        <h1 className="text-5xl font-bold text-orange-500">Please Sign Up</h1>
+
+                    </div>
+                    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                        <div className="card-body">
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Name</span>
+                                </label>
+                                <input type="name" {...register("name" , { required: true })}  name="name" placeholder="name" className="input input-bordered" required />
+                                {errors.name && <span>This field is required</span>}
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">photoURL</span>
+                                </label>
+                                <input type="photoURL" {...register("photoURL" , { required: true })}  name="photoURL" placeholder="photoURL" className="input input-bordered" required />
+                                {errors.name && <span>This field is required</span>}
+                            </div>
+                            
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Email</span>
+                                </label>
+                                <input type="email" {...register("email")}  name="email" placeholder="email" className="input input-bordered" required />
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Password</span>
+                                </label>
+                                <input type="password" {...register("password")}  name="password" placeholder="password" className="input input-bordered" required />
+                            </div>
+                        <p><Link to="/login" className="text-orange-600">login now</Link></p>
+                            <div className="form-control mt-6">
+                                <input className="btn bg-orange-600" type="submit" value="Sign Up" />
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default SignUp;

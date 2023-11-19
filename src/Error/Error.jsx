@@ -1,9 +1,9 @@
-
+import errorImg from '../../public/assets/home/404.gif'
 
 const Error = () => {
     return (
-        <div>
-            error
+        <div className='flex  justify-center items-center'>
+            <img src={errorImg} alt="" />
         </div>
     );
 };

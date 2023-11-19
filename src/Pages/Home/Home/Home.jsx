@@ -1,4 +1,5 @@
 
+// import { Helmet } from "react-helmet";
 import Banner from "../Banner/Banner";
 import Category from "../Category/Category";
 import PopularManu from "../PopularManu/PopularManu";
@@ -10,6 +11,9 @@ import Testimonial from "./Testimonial/Testimonial";
 const Home = () => {
     return (
         <div>
+            {/* <Helmet>
+            <title>Bistro Boss | Home</title>
+           </Helmet> */}
             <Banner></Banner>
             <Category></Category>
             <PopularManu></PopularManu>
