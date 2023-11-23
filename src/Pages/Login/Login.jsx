@@ -3,14 +3,15 @@ import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-s
 import { AuthContext } from '../Provider/AuthProvider';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import SocialLogin from '../../Components/SocialLogin';
 
 const Login = () => {
     const captchaRef = useRef(null);
     const [disabled, SetDisabled] = useState(true);
-const { signIn } = useContext(AuthContext)
-const location=useLocation()
-const navigate=useNavigate()
-const from= location?.state?.from?.pathname || "/"
+    const { signIn } = useContext(AuthContext)
+    const location = useLocation()
+    const navigate = useNavigate()
+    const from = location?.state?.from?.pathname || "/"
 
     useEffect(() => {
         loadCaptchaEnginge(6);
@@ -28,21 +29,21 @@ const from= location?.state?.from?.pathname || "/"
                 Swal.fire({
                     title: "Login Successfully",
                     showClass: {
-                      popup: `
+                        popup: `
                         animate__animated
                         animate__fadeInUp
                         animate__faster
                       `
                     },
                     hideClass: {
-                      popup: `
+                        popup: `
                         animate__animated
                         animate__fadeOutDown
                         animate__faster
                       `
                     }
-                  });
-                  navigate(from ,{replace:true})
+                });
+                navigate(from, { replace: true })
             })
     }
     const handelCaptcha = () => {
@@ -84,14 +85,19 @@ const from= location?.state?.from?.pathname || "/"
                             <button onClick={handelCaptcha} className="btn btn-outline btn-xs mt-3">Vlidation</button>
                         </div>
                         <div className="form-control mt-6">
-{/* disable ={disable} */}
+                            {/* disable ={disable} */}
                             <input disabled={false} className="btn bg-yellow-500" type="submit" value="login" />
                         </div>
+                        <p><small>New Here ? <Link to="/signup" className='text-orange-700'>Create an Account </Link></small></p>
+                        <div className='divider'></div>
+                        <SocialLogin></SocialLogin>
                     </form>
-                    <p><small>New Here ? <Link to="/signup" className='text-orange-700'>Create an Account </Link></small></p>
+                   
+                   </div>
                 </div>
+                
             </div>
-        </div>
+       
     );
 };
 

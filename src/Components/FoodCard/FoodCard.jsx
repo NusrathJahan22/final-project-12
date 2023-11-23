@@ -26,7 +26,7 @@ const [, refetch] =useCart()
                 name,
                 image,
                 price
-            }5
+            }
             axiosSecure.post('/carts', cartItem)
                 .then(res => {
                     console.log(res.data)
